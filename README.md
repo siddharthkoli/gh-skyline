@@ -9,7 +9,7 @@ A GitHub CLI extension that generates 3D-printable STL files of your GitHub cont
 - Automatic authentication via GitHub CLI or specify a user
 - ASCII art loading preview of contribution data unique to each user and year
 
-Placeholder for image to go here.
+![Examples of gh-skyline being used in the terminal](https://github.com/user-attachments/assets/a69de393-64d1-4eba-9190-f6e2f81c5145)
 
 ## Usage
 
