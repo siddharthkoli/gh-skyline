@@ -1,0 +1,28 @@
+run:
+  # Allow multiple directories to be analyzed
+  allow-parallel-runners: true
+
+  # Add modules-download-mode
+  modules-download-mode: readonly
+
+  # Allow multiple packages
+  allow-separate-packages: true
+
+# Configure specific linters
+linters:
+  enable:
+    - gofmt
+    - govet
+    - revive
+    - staticcheck
+
+issues:
+  exclude-use-default: false
+
+  # Include all subdirectories
+  exclude-dirs-use-default:
+    false
+
+    # If needed, explicitly specify which directories to analyze
+  exclude-dirs:
+    - vendor
