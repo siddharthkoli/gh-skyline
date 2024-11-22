@@ -2,6 +2,7 @@ package geometry
 
 import (
 	"embed"
+	"fmt"
 	"os"
 
 	"github.com/github/gh-skyline/errors"
@@ -25,14 +26,17 @@ func writeTempFont(fontName string) (string, func(), error) {
 	}
 
 	if _, err := tmpFile.Write(fontBytes); err != nil {
-		tmpFile.Close()
-		os.Remove(tmpFile.Name())
-		return "", nil, errors.New(errors.IOError, "failed to write font to temp file", err)
+		closeErr := tmpFile.Close()
+		removeErr := os.Remove(tmpFile.Name())
+		return "", nil, errors.New(errors.IOError, "failed to write font to temp file", fmt.Errorf("%w; close error: %v; remove error: %v", err, closeErr, removeErr))
 	}
-	tmpFile.Close()
+	if err := tmpFile.Close(); err != nil {
+		removeErr := os.Remove(tmpFile.Name())
+		return "", nil, errors.New(errors.IOError, "failed to close temp font file", fmt.Errorf("%w; remove error: %v", err, removeErr))
+	}
 
 	cleanup := func() {
-		os.Remove(tmpFile.Name())
+		_ = os.Remove(tmpFile.Name()) // Ignore cleanup errors in defer
 	}
 
 	return tmpFile.Name(), cleanup, nil
@@ -52,14 +56,17 @@ func getEmbeddedImage() (string, func(), error) {
 	}
 
 	if _, err := tmpFile.Write(imgBytes); err != nil {
-		tmpFile.Close()
-		os.Remove(tmpFile.Name())
-		return "", nil, errors.New(errors.IOError, "failed to write image to temp file", err)
+		closeErr := tmpFile.Close()
+		removeErr := os.Remove(tmpFile.Name())
+		return "", nil, errors.New(errors.IOError, "failed to write image to temp file", fmt.Errorf("%w; close error: %v; remove error: %v", err, closeErr, removeErr))
 	}
-	tmpFile.Close()
+	if err := tmpFile.Close(); err != nil {
+		removeErr := os.Remove(tmpFile.Name())
+		return "", nil, errors.New(errors.IOError, "failed to close temp image file", fmt.Errorf("%w; remove error: %v", err, removeErr))
+	}
 
 	cleanup := func() {
-		os.Remove(tmpFile.Name())
+		_ = os.Remove(tmpFile.Name()) // Ignore cleanup errors in defer
 	}
 
 	return tmpFile.Name(), cleanup, nil
