@@ -124,7 +124,7 @@ This project is licensed under the terms of the MIT open source license. Please 
 
 Mona Sans is licensed under the [SIL Open Font License v1.1](https://scripts.sil.org/OFL). Find more details at [github/mona-sans](https://github.com/github/mona-sans).
 
-[golang/freetype](https://github.com/golang/freetype) is used as a dependency. Portions of this software are copyright © 2024 The FreeType Project (www.freetype.org).  All rights reserved.
+[golang/freetype](https://github.com/golang/freetype) is used as a dependency. Portions of this software are copyright © 2024 The FreeType Project ([www.freetype.org](https://www.freetype.org)). All rights reserved.
 
 ## Acknowledgements
 
