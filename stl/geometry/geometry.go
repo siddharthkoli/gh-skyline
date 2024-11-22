@@ -25,8 +25,8 @@ const (
 
 // Font file paths for text rendering.
 const (
-	PrimaryFont  = "assets/monasans-medium.ttf"
-	FallbackFont = "assets/monasans-regular.ttf"
+	PrimaryFont  = "monasans-medium.ttf"
+	FallbackFont = "monasans-regular.ttf"
 )
 
 // Additional constants for year range styling

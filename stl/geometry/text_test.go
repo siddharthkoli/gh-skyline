@@ -167,7 +167,7 @@ func TestGenerateImageGeometry(t *testing.T) {
 	}()
 
 	t.Run("verify valid image geometry generation", func(t *testing.T) {
-		triangles, err := GenerateImageGeometry(testPNGPath, 100.0, 5.0)
+		triangles, err := GenerateImageGeometry(100.0, 5.0)
 		if err != nil {
 			t.Fatalf("GenerateImageGeometry failed: %v", err)
 		}
@@ -176,15 +176,8 @@ func TestGenerateImageGeometry(t *testing.T) {
 		}
 	})
 
-	t.Run("verify invalid image path", func(t *testing.T) {
-		_, err := GenerateImageGeometry("nonexistent.png", 100.0, 5.0)
-		if err == nil {
-			t.Error("Expected error for invalid image path")
-		}
-	})
-
 	t.Run("verify geometry normal vectors", func(t *testing.T) {
-		triangles, err := GenerateImageGeometry(testPNGPath, 100.0, 5.0)
+		triangles, err := GenerateImageGeometry(100.0, 5.0)
 		if err != nil {
 			t.Fatalf("GenerateImageGeometry failed: %v", err)
 		}

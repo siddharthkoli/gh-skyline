@@ -111,10 +111,19 @@ func Create3DText(username string, year string, innerWidth, baseHeight float64) 
 // renderText generates 3D geometry for the given text configuration.
 func renderText(config textRenderConfig) ([]types.Triangle, error) {
 	dc := gg.NewContext(config.contextWidth, config.contextHeight)
-	if err := dc.LoadFontFace(PrimaryFont, config.fontSize); err != nil {
-		if err := dc.LoadFontFace(FallbackFont, config.fontSize); err != nil {
-			return nil, errors.New(errors.IOError, "failed to load fonts", err)
+
+	// Get temporary font file
+	fontPath, cleanup, err := writeTempFont(PrimaryFont)
+	if err != nil {
+		// Try fallback font
+		fontPath, cleanup, err = writeTempFont(FallbackFont)
+		if err != nil {
+			return nil, errors.New(errors.IOError, "failed to load any fonts", err)
 		}
+	}
+
+	if err := dc.LoadFontFace(fontPath, config.fontSize); err != nil {
+		return nil, errors.New(errors.IOError, "failed to load font", err)
 	}
 
 	dc.SetRGB(0, 0, 0)
@@ -147,11 +156,19 @@ func renderText(config textRenderConfig) ([]types.Triangle, error) {
 		}
 	}
 
+	defer cleanup()
+
 	return triangles, nil
 }
 
-// GenerateImageGeometry creates 3D geometry from a PNG image file.
-func GenerateImageGeometry(imagePath string, innerWidth, baseHeight float64) ([]types.Triangle, error) {
+// GenerateImageGeometry creates 3D geometry from the embedded logo image.
+func GenerateImageGeometry(innerWidth, baseHeight float64) ([]types.Triangle, error) {
+	// Get temporary image file
+	imgPath, cleanup, err := getEmbeddedImage()
+	if err != nil {
+		return nil, err
+	}
+
 	config := imageRenderConfig{
 		renderConfig: renderConfig{
 			startX:     innerWidth * imagePosition,
@@ -160,9 +177,11 @@ func GenerateImageGeometry(imagePath string, innerWidth, baseHeight float64) ([]
 			voxelScale: defaultImageScale,
 			depth:      frontEmbedDepth,
 		},
-		imagePath: imagePath,
+		imagePath: imgPath,
 		height:    defaultImageHeight,
 	}
+
+	defer cleanup()
 
 	return renderImage(config)
 }
