@@ -235,7 +235,7 @@ func generateText(username string, startYear int, endYear int, dims modelDimensi
 // generateLogo handles the generation of the GitHub logo geometry
 func generateLogo(dims modelDimensions, ch chan<- geometryResult, wg *sync.WaitGroup) {
 	defer wg.Done()
-	logoTriangles, err := geometry.GenerateImageGeometry(dims.imagePath, dims.innerWidth, geometry.BaseHeight)
+	logoTriangles, err := geometry.GenerateImageGeometry(dims.innerWidth, geometry.BaseHeight)
 	if err != nil {
 		// Log warning and continue without logo instead of failing
 		if logErr := logger.GetLogger().Warning("Failed to generate logo geometry: %v. Continuing without logo.", err); logErr != nil {
