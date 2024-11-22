@@ -124,8 +124,11 @@ This project is licensed under the terms of the MIT open source license. Please 
 
 Mona Sans is licensed under the [SIL Open Font License v1.1](https://scripts.sil.org/OFL). Find more details at [github/mona-sans](https://github.com/github/mona-sans).
 
+[golang/freetype](https://github.com/golang/freetype) is used as a dependency. Portions of this software are copyright © 2024 The FreeType Project (www.freetype.org).  All rights reserved.
+
 ## Acknowledgements
 
 - The Invertocat is subject to [GitHub Logos and Usage guidelines](https://github.com/logos).
 - The [Mona Sans](https://github.com/github/mona-sans) typeface.
 - The [GitHub CLI](https://cli.github.com/) team for the CLI and extension framework.
+- [golang/freetype](https://github.com/golang/freetype).
