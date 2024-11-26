@@ -1,4 +1,4 @@
-# GitHub Skyline Generator
+# GitHub Skyline (gh-skyline)
 
 A GitHub CLI extension that generates 3D-printable STL files of your GitHub contribution graph.
 
