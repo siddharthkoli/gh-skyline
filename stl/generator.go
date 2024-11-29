@@ -216,8 +216,8 @@ func generateText(username string, startYear int, endYear int, dims modelDimensi
 
 	// If start year and end year are the same, only show one year
 	if startYear != endYear {
-		// Make the year 'YY-YY'
-		embossedYear = fmt.Sprintf("'%02d-'%02d", startYear%100, endYear%100)
+		// Make the year 'YYYY-YY'
+		embossedYear = fmt.Sprintf("%04d-%02d", startYear, endYear%100)
 	}
 
 	textTriangles, err := geometry.Create3DText(username, embossedYear, dims.innerWidth, geometry.BaseHeight)

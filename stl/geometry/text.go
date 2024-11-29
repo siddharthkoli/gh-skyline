@@ -38,7 +38,7 @@ type imageRenderConfig struct {
 const (
 	imagePosition  = 0.025
 	usernameOffset = -0.01
-	yearPosition   = 0.79
+	yearPosition   = 0.77
 
 	defaultContextWidth  = 800
 	defaultContextHeight = 200
