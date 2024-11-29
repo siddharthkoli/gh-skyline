@@ -143,9 +143,9 @@ func renderText(config textRenderConfig) ([]types.Triangle, error) {
 					xPos,
 					config.startY,
 					zPos,
-					config.voxelScale,
+					config.voxelScale/2,
 					config.depth,
-					config.voxelScale,
+					config.voxelScale/2,
 				)
 				if err != nil {
 					return nil, errors.New(errors.STLError, "failed to create cube", err)
