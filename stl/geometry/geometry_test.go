@@ -90,9 +90,9 @@ func TestCalculateMultiYearDimensions(t *testing.T) {
 		wantW     float64
 		wantD     float64
 	}{
-		{"single year", 1, float64(GridSize)*CellSize + 2*CellSize, 7*CellSize + 2*CellSize},
-		{"multiple years", 3, float64(GridSize)*CellSize + 2*CellSize, 21*CellSize + 2*CellSize},
-		{"zero years", 0, float64(GridSize)*CellSize + 2*CellSize, 2 * CellSize},
+		{"single year", 1, float64(GridSize)*CellSize + 4*CellSize, 7*CellSize + 4*CellSize},
+		{"multiple years", 3, float64(GridSize)*CellSize + 4*CellSize, 21*CellSize + 4*CellSize},
+		{"zero years", 0, float64(GridSize)*CellSize + 4*CellSize, 4 * CellSize},
 	}
 
 	for _, tt := range tests {
