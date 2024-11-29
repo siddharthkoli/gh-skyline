@@ -19,9 +19,9 @@ const (
 	MiddleHigh = '▓'
 
 	// Top blocks (highest layer, using special characters for visual distinction)
-	TopLow  = '⏊' // Lower intensity peak
-	TopMed  = '⏅' // Medium intensity peak
-	TopHigh = '∆' // High intensity peak
+	TopLow  = '╻' // Lower intensity peak
+	TopMed  = '┃' // Medium intensity peak
+	TopHigh = '╽' // High intensity peak
 )
 
 // Contribution level thresholds as percentages of the maximum contribution count
