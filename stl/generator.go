@@ -98,9 +98,7 @@ func calculateDimensions(yearCount int) (modelDimensions, error) {
 	var width, depth float64
 
 	if yearCount <= 1 {
-		// Single year case: add padding to both width and depth
-		width = float64(geometry.GridSize)*geometry.CellSize + 4*geometry.CellSize
-		depth = float64(7)*geometry.CellSize + 4*geometry.CellSize
+		width, depth = geometry.CalculateMultiYearDimensions(1)
 	} else {
 		// Multi-year case: use the multi-year calculation
 		width, depth = geometry.CalculateMultiYearDimensions(yearCount)
