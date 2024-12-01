@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to report this issue! Please check for existing issues before submitting. If you find one, feel free to add more information or give a 👍 to the original issue.
+        Thank you for taking the time to report this issue! Please [check for existing bugs](https://github.com/github/gh-skyline/issues) before submitting. If you find one, feel free to add more information or give a 👍 to the original issue.
   - type: input
     id: gh-cli-version
     attributes:

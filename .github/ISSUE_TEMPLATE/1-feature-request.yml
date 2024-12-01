@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to submit a feature request! Please check for existing requests before submitting. If you find one, feel free to add more information or give a 👍 to the original issue.
+        Thank you for taking the time to submit a feature request! Please [check for existing requests](https://github.com/github/gh-skyline/issues) before submitting. If you find one, feel free to add more information or give a 👍 to the original issue.
 
   - type: textarea
     id: description
