@@ -96,13 +96,7 @@ func calculateDimensions(yearCount int) (modelDimensions, error) {
 	}
 
 	var width, depth float64
-
-	if yearCount <= 1 {
-		width, depth = geometry.CalculateMultiYearDimensions(1)
-	} else {
-		// Multi-year case: use the multi-year calculation
-		width, depth = geometry.CalculateMultiYearDimensions(yearCount)
-	}
+	width, depth = geometry.CalculateMultiYearDimensions(yearCount)
 
 	dims := modelDimensions{
 		innerWidth: width,
