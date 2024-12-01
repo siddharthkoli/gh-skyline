@@ -67,13 +67,13 @@ func CreateContributionGeometry(contributions [][]types.ContributionDay, yearInd
 	var triangles []types.Triangle
 
 	// Base Y offset includes padding and positions each year accordingly
-	baseYOffset := CellSize + float64(yearIndex)*7*CellSize
+	baseYOffset := 2*CellSize + float64(yearIndex)*7*CellSize
 
 	for weekIdx, week := range contributions {
 		for dayIdx, day := range week {
 			if day.ContributionCount > 0 {
 				height := NormalizeContribution(day.ContributionCount, maxContrib)
-				x := CellSize + float64(weekIdx)*CellSize
+				x := 2*CellSize + float64(weekIdx)*CellSize
 				y := baseYOffset + float64(dayIdx)*CellSize
 
 				columnTriangles, err := CreateColumn(x, y, height, CellSize)
@@ -91,8 +91,8 @@ func CreateContributionGeometry(contributions [][]types.ContributionDay, yearInd
 // CalculateMultiYearDimensions calculates dimensions for multiple years
 func CalculateMultiYearDimensions(yearCount int) (width, depth float64) {
 	// Total width: grid size + padding on both sides
-	width = float64(GridSize)*CellSize + 2*CellSize
+	width = float64(GridSize)*CellSize + 4*CellSize
 	// Total depth: (7 days * number of years) + padding on both sides
-	depth = float64(7*yearCount)*CellSize + 2*CellSize
+	depth = float64(7*yearCount)*CellSize + 4*CellSize
 	return width, depth
 }

@@ -96,15 +96,7 @@ func calculateDimensions(yearCount int) (modelDimensions, error) {
 	}
 
 	var width, depth float64
-
-	if yearCount <= 1 {
-		// Single year case: add padding to both width and depth
-		width = float64(geometry.GridSize)*geometry.CellSize + 2*geometry.CellSize
-		depth = float64(7)*geometry.CellSize + 2*geometry.CellSize
-	} else {
-		// Multi-year case: use the multi-year calculation
-		width, depth = geometry.CalculateMultiYearDimensions(yearCount)
-	}
+	width, depth = geometry.CalculateMultiYearDimensions(yearCount)
 
 	dims := modelDimensions{
 		innerWidth: width,
@@ -216,8 +208,8 @@ func generateText(username string, startYear int, endYear int, dims modelDimensi
 
 	// If start year and end year are the same, only show one year
 	if startYear != endYear {
-		// Make the year 'YY-YY'
-		embossedYear = fmt.Sprintf("'%02d-'%02d", startYear%100, endYear%100)
+		// Make the year 'YYYY-YY'
+		embossedYear = fmt.Sprintf("%04d-%02d", startYear, endYear%100)
 	}
 
 	textTriangles, err := geometry.Create3DText(username, embossedYear, dims.innerWidth, geometry.BaseHeight)

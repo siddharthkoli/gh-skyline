@@ -38,7 +38,7 @@ type imageRenderConfig struct {
 const (
 	imagePosition  = 0.025
 	usernameOffset = -0.01
-	yearPosition   = 0.79
+	yearPosition   = 0.77
 
 	defaultContextWidth  = 800
 	defaultContextHeight = 200
@@ -143,9 +143,9 @@ func renderText(config textRenderConfig) ([]types.Triangle, error) {
 					xPos,
 					config.startY,
 					zPos,
-					config.voxelScale,
+					config.voxelScale/2,
 					config.depth,
-					config.voxelScale,
+					config.voxelScale/2,
 				)
 				if err != nil {
 					return nil, errors.New(errors.STLError, "failed to create cube", err)
