@@ -37,7 +37,7 @@ You can run the `gh skyline` command with the following flags:
   - Example: `gh skyline --help`
 - `-f`, `--full`: Generate the contribution graph from the user's join year to the current year.
   - Example: `gh skyline --full`
-- `-o`, `--output`: Specify the output file name. If not provided, the default is `{username}-{year}-github-skyline.stl`.
+- `-o`, `--output`: Specify the output filename. If not provided, the default is `{username}-{year}-github-skyline.stl`.
   - Example: `gh skyline --output my-skyline.stl`
 - `-u`, `--user`: Specify the GitHub username. If not provided, the authenticated user is used.
   - Example: `gh skyline --user mona`
@@ -84,7 +84,7 @@ Enable debug logging:
 gh skyline --debug
 ```
 
-By default, the CLI will create a `{username}-{year}-github-skyline.stl` file in your current directory. You can specify a different file name using the `--output` flag.
+By default, the CLI will create a `{username}-{year}-github-skyline.stl` file in your current directory. You can specify a different filename using the `--output` flag.
 
 ```bash
 gh skyline --output my-skyline.stl
@@ -112,52 +112,6 @@ The extension generates ASCII art in terminal while loading, a unique and fun wa
 - `'▒'` Medium level: Moderate contribution activity
 - `'▓'` High level: Heavy contribution activity
 - `'╻┃╽'` Top level: Last block with contributions in the week (Low, Medium, High)
-
-## Project Structure
-
-```text
-├── ascii/
-│   ├── block.go: ASCII block character definitions for contribution levels
-│   ├── block_test.go: Block character unit tests
-│   ├── generator.go: Contribution visualization ASCII art generation
-│   ├── generator_test.go: ASCII generation tests
-│   ├── text.go: ASCII text formatting utilities
-│   └── text_test.go: Text formatting unit tests
-├── errors/
-│   ├── errors.go: Custom error types and domain-specific error handling
-│   └── errors_test.go: Error handling unit tests
-├── github/
-│   ├── client.go: GitHub API client for fetching contribution data
-│   └── client_test.go: API client unit tests
-├── logger/
-│   ├── logger.go: Thread-safe logging with severity levels
-│   └── logger_test.go: Logger unit tests
-├── stl/
-│   ├── generator.go: STL 3D model generation from contribution data
-│   ├── generator_test.go: Model generation unit tests
-│   ├── stl.go: STL binary file format implementation
-│   ├── stl_test.go: STL file generation tests
-│   └── geometry/
-│       ├── geometry.go: 3D geometry calculations and transformations
-│       ├── geometry_test.go: Geometry unit tests
-│       ├── shapes.go: Basic 3D primitive shape definitions
-│       ├── text.go: 3D text geometry generation
-│       └── text_test.go: Text geometry unit tests
-├── types/
-│   ├── types.go: Shared data structures and interfaces
-│   └── types_test.go: Data structure unit tests
-└── main.go: CLI application entry point
-```
-
-## Contributing
-
-To contribute to the project, please read the instructions and contributing guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the terms of the MIT open source license. Please refer to [MIT](./LICENSE) for the full terms.
-
-Mona Sans is licensed under the [SIL Open
 
 ## Project Structure
 
