@@ -1,3 +1,5 @@
+![Example GitHub Skyline](https://github.com/user-attachments/assets/ed0fe34e-6825-4eb2-91d7-a0834966dc3a)
+
 # GitHub Skyline (gh-skyline)
 
 A GitHub CLI extension that generates 3D-printable STL files of your GitHub contribution graph.
@@ -6,9 +8,6 @@ A GitHub CLI extension that generates 3D-printable STL files of your GitHub cont
 
 - Generate a Binary STL file from GitHub contribution data for 3D printing
 - Customizable year selection (single year and multi-year)
-
-  ![Example GitHub Skyline](https://github.com/user-attachments/assets/f3f5d3d8-cd15-40c4-a2cb-2bbd74bdbc4e)
-
 - Automatic authentication via GitHub CLI or specify a user
 - ASCII art loading preview of contribution data unique to each user and year
 
