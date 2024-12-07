@@ -1,3 +1,5 @@
+// Package main provides the entry point for the GitHub Skyline Generator.
+// It generates a 3D model of GitHub contributions in STL format.
 package main
 
 import (
@@ -50,7 +52,7 @@ ASCII Preview Legend:
 Layout:
 Each column represents one week. Days within each week are reordered vertically
 to create a "building" effect, with empty spaces (no contributions) at the top.`,
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(_ *cobra.Command, args []string) error {
 			log := logger.GetLogger()
 			if debug {
 				log.SetLevel(logger.DEBUG)
