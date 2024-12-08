@@ -20,6 +20,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Browser interface matches browser.Browser functionality
+type Browser interface {
+	Browse(url string) error
+}
+
+// GitHub ClientInterface defines the methods for interacting with GitHub API
+type GitHubClientInterface interface {
+	GetAuthenticatedUser() (string, error)
+	GetUserJoinYear(username string) (int, error)
+	FetchContributions(username string, year int) (*types.ContributionsResponse, error)
+}
+
 // Constants for GitHub launch year and default output file format
 const (
 	githubLaunchYear = 2008
@@ -61,8 +73,18 @@ to create a "building" effect, with empty spaces (no contributions) at the top.`
 				}
 			}
 
+			client, err := initializeGitHubClient()
+			if err != nil {
+				return errors.New(errors.NetworkError, "failed to initialize GitHub client", err)
+			}
+
 			if web {
-				return openGitHubProfile(user)
+				b := browser.New("", os.Stdout, os.Stderr)
+				if err := openGitHubProfile(user, client, b); err != nil {
+					fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+					os.Exit(1)
+				}
+				return nil
 			}
 
 			startYear, endYear, err := parseYearRange(yearRange)
@@ -242,6 +264,9 @@ func parseYearRange(yearRange string) (startYear, endYear int, err error) {
 	return startYear, endYear, validateYearRange(startYear, endYear)
 }
 
+// validateYearRange checks if the years are within the range
+// of GitHub's launch year to the current year and if
+// the start year is not greater than the end year.
 func validateYearRange(startYear, endYear int) error {
 	currentYear := time.Now().Year()
 	if startYear < githubLaunchYear || endYear > currentYear {
@@ -254,13 +279,8 @@ func validateYearRange(startYear, endYear int) error {
 }
 
 // openGitHubProfile opens the GitHub profile page for the specified user or authenticated user
-func openGitHubProfile(targetUser string) error {
+func openGitHubProfile(targetUser string, client GitHubClientInterface, b Browser) error {
 	if targetUser == "" {
-		client, err := initializeGitHubClient()
-		if err != nil {
-			return errors.New(errors.NetworkError, "failed to initialize GitHub client", err)
-		}
-
 		username, err := client.GetAuthenticatedUser()
 		if err != nil {
 			return errors.New(errors.NetworkError, "failed to get authenticated user", err)
@@ -269,6 +289,5 @@ func openGitHubProfile(targetUser string) error {
 	}
 
 	profileURL := fmt.Sprintf("https://github.com/%s", targetUser)
-	b := browser.New("", os.Stdout, os.Stderr)
 	return b.Browse(profileURL)
 }
