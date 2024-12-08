@@ -25,7 +25,7 @@ type Browser interface {
 	Browse(url string) error
 }
 
-// GitHub ClientInterface defines the methods for interacting with GitHub API
+// GitHubClientInterface defines the methods for interacting with GitHub API
 type GitHubClientInterface interface {
 	GetAuthenticatedUser() (string, error)
 	GetUserJoinYear(username string) (int, error)
@@ -52,6 +52,8 @@ var (
 		Short: "Generate a 3D model of a user's GitHub contribution history",
 		Long: `GitHub Skyline creates 3D printable STL files from GitHub contribution data.
 It can generate models for specific years or year ranges for the authenticated user or an optional specified user.
+
+While the STL file is being generated, an ASCII preview will be displayed in the terminal.
 
 ASCII Preview Legend:
   ' ' Empty/Sky     - No contributions
