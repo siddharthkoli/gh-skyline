@@ -15,8 +15,9 @@ import (
 
 // MockGitHubClient implements the github.APIClient interface
 type MockGitHubClient struct {
-	username string
-	joinYear int
+	username    string
+	joinYear    int
+	shouldError bool // Add error flag
 }
 
 // Get implements the APIClient interface
@@ -79,14 +80,28 @@ func contributionResponse(username string) []byte {
 	return []byte(response)
 }
 
+// GetAuthenticatedUser returns the authenticated user's username or an error
+// if the mock client is set to error or the username is not set.
 func (m *MockGitHubClient) GetAuthenticatedUser() (string, error) {
+	// Return error if shouldError is true
+	if m.shouldError {
+		return "", fmt.Errorf("mock client error")
+	}
+	// Validate username is not empty
+	if m.username == "" {
+		return "", fmt.Errorf("mock username not set")
+	}
 	return m.username, nil
 }
 
+// GetUserJoinYear implements the GitHubClientInterface.
+// It returns the year the user joined GitHub.
 func (m *MockGitHubClient) GetUserJoinYear(_ string) (int, error) {
 	return m.joinYear, nil
 }
 
+// FetchContributions mocks fetching GitHub contributions for a user
+// in a given year, returning minimal valid data.
 func (m *MockGitHubClient) FetchContributions(username string, year int) (*types.ContributionsResponse, error) {
 	// Return minimal valid response
 	resp := &types.ContributionsResponse{}
@@ -106,6 +121,22 @@ func (m *MockGitHubClient) FetchContributions(username string, year int) (*types
 		ContributionDays []types.ContributionDay `json:"contributionDays"`
 	}{week}
 	return resp, nil
+}
+
+// MockBrowser implements the Browser interface
+type MockBrowser struct {
+	LastURL     string
+	ShouldError bool
+}
+
+// Browse implements the Browser interface
+// Changed from pointer receiver to value receiver
+func (m *MockBrowser) Browse(url string) error {
+	m.LastURL = url
+	if m.ShouldError {
+		return fmt.Errorf("mock browser error")
+	}
+	return nil
 }
 
 func TestFormatYearRange(t *testing.T) {
@@ -333,6 +364,61 @@ func TestGenerateSkyline(t *testing.T) {
 			err := generateSkyline(tt.startYear, tt.endYear, tt.targetUser, tt.full)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("generateSkyline() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestOpenGitHubProfile tests the openGitHubProfile function
+func TestOpenGitHubProfile(t *testing.T) {
+	tests := []struct {
+		name       string
+		targetUser string
+		mockClient *MockGitHubClient
+		wantURL    string
+		wantErr    bool
+	}{
+		{
+			name:       "specific user",
+			targetUser: "testuser",
+			mockClient: &MockGitHubClient{},
+			wantURL:    "https://github.com/testuser",
+			wantErr:    false,
+		},
+		{
+			name:       "authenticated user",
+			targetUser: "",
+			mockClient: &MockGitHubClient{
+				username:    "authuser",
+				shouldError: false,
+			},
+			wantURL: "https://github.com/authuser",
+			wantErr: false,
+		},
+		{
+			name:       "client error",
+			targetUser: "",
+			mockClient: &MockGitHubClient{
+				username:    "",
+				shouldError: true,
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Create MockBrowser and call openGitHubProfile
+			mockBrowser := &MockBrowser{ShouldError: tt.wantErr}
+			err := openGitHubProfile(tt.targetUser, tt.mockClient, mockBrowser)
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("openGitHubProfile() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			if !tt.wantErr && mockBrowser.LastURL != tt.wantURL {
+				t.Errorf("openGitHubProfile() URL = %v, want %v", mockBrowser.LastURL, tt.wantURL)
 			}
 		})
 	}
