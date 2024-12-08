@@ -29,7 +29,7 @@ require (
 	github.com/thlib/go-timezone-local v0.0.3 // indirect
 	golang.org/x/image v0.22.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
-	golang.org/x/term v0.26.0 // indirect
+	golang.org/x/term v0.27.0 // indirect
 	golang.org/x/text v0.20.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
