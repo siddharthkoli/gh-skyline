@@ -38,6 +38,9 @@ const (
 	// - Attribute count: 2 bytes
 	// Total: 50 bytes
 	triangleSize = (12 * 4) + 2
+
+	// maxTriangleCount defines the maximum number of triangles allowed in an STL file.
+	maxTriangleCount = uint64(math.MaxUint32)
 )
 
 // bufferWriter encapsulates common buffer writing operations
@@ -140,16 +143,14 @@ func WriteSTLBinary(filename string, triangles []types.Triangle) error {
 		return err
 	}
 
-	triangleCountInt := len(triangles)
-	if triangleCountInt < 0 {
-		return errors.New(errors.ValidationError, "triangle count cannot be negative", nil)
-	}
-	if triangleCountInt > int(math.MaxUint32) {
+	triangleCount := uint64(len(triangles))
+	if triangleCount > maxTriangleCount {
 		return errors.New(errors.ValidationError, "triangle count exceeds valid range for STL format", nil)
 	}
 
-	triangleCount := uint32(triangleCountInt)
-	if err := writeTriangleCount(writer, triangleCount); err != nil {
+	// Now safely convert to uint32 since we know it's in range
+	triangleCountUint32 := uint32(triangleCount)
+	if err := writeTriangleCount(writer, triangleCountUint32); err != nil {
 		return err
 	}
 
