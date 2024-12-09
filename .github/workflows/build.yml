@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   build:
@@ -40,17 +39,11 @@ jobs:
             coverage.html
             coverage.txt
 
-      - name: Post Coverage Comment
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const coverage = fs.readFileSync('coverage.txt', 'utf8');
-            const comment = `### Code Coverage Report\n\`\`\`\n${coverage}\`\`\``;
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: comment
-            });
+      - name: Post Coverage Summary
+        run: |
+          {
+            echo "### Code Coverage Report"
+            echo '```'
+            cat coverage.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

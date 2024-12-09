@@ -8,11 +8,25 @@ run:
   # Allow multiple packages
   allow-separate-packages: true
 
+  tests: true
+
+linters-settings:
+  gosec:
+    excludes:
+      - G304 # File path provided as taint input
+
 # Configure specific linters
 linters:
   enable:
+    - bodyclose
+    - copyloopvar
+    - durationcheck
+    - gocritic
     - gofmt
+    - gosec
     - govet
+    - ineffassign
+    - nilerr
     - revive
     - staticcheck
 

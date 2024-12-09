@@ -141,8 +141,8 @@ func WriteSTLBinary(filename string, triangles []types.Triangle) error {
 	}
 
 	triangleCount := len(triangles)
-	if triangleCount < 0 {
-		return errors.New(errors.ValidationError, "invalid number of triangles for STL format", nil)
+	if triangleCount < 0 || triangleCount > math.MaxUint32 {
+		return errors.New(errors.ValidationError, "triangle count exceeds valid range for STL format", nil)
 	}
 	if err := writeTriangleCount(writer, uint32(triangleCount)); err != nil {
 		return err
