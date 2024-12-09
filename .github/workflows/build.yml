@@ -46,4 +46,4 @@ jobs:
             echo '```'
             cat coverage.txt
             echo '```'
-          } >> $GITHUB_STEP_SUMMARY
+          } >> "$GITHUB_STEP_SUMMARY"
