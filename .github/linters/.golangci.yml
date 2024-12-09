@@ -10,7 +10,6 @@ run:
 
   tests: true
 
-
 linters-settings:
   gosec:
     excludes:
