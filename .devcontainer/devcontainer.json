@@ -35,7 +35,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "go install -v golang.org/x/tools/cmd/goimports@latest",
+  "postCreateCommand": "go install -v golang.org/x/tools/cmd/goimports@latest"
 
   // Configure tool-specific properties.
   // "customizations": {},
