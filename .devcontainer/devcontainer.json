@@ -29,13 +29,13 @@
 
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
-  }
+  },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "go version",
+  "postCreateCommand": "go install -v golang.org/x/tools/cmd/goimports@latest",
 
   // Configure tool-specific properties.
   // "customizations": {},
