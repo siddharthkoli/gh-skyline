@@ -1,8 +1,8 @@
 # Contributing
 
-[fork]: https://github.com/github/REPO/fork
-[pr]: https://github.com/github/REPO/compare
-[style]: https://github.com/github/REPO/blob/main/.golangci.yaml
+[fork]: https://github.com/github/gh-skyline/fork
+[pr]: https://github.com/github/gh-skyline/compare
+[style]: https://github.com/github/gh-skyline/blob/main/.github/linters/.golangci.yml
 
 Hi there! We're thrilled that you'd like to contribute to this project. Your help is essential for keeping it great.
 
