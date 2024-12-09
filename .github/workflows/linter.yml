@@ -40,3 +40,4 @@ jobs:
           VALIDATE_JSON_PRETTIER: false
           LINTER_RULES_PATH: .github/linters
           GOLANGCI_LINT_CONFIG: .golangci.yml
+          VALIDATE_YAML_PRETTIER: false
