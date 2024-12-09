@@ -41,7 +41,9 @@ jobs:
 
       - name: Post Coverage Summary
         run: |
-          echo "### Code Coverage Report" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat coverage.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          {
+            echo "### Code Coverage Report"
+            echo '```'
+            cat coverage.txt
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY
