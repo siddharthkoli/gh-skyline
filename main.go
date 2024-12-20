@@ -194,6 +194,7 @@ func generateSkyline(startYear, endYear int, targetUser string, full bool) error
 					containsFoundationLow := strings.Contains(line, string(ascii.FoundationLow))
 					isNotOnlyEmptyBlocks := strings.Trim(line, string(ascii.EmptyBlock)) != ""
 
+					if (containsEmptyBlock || containsFoundationLow) && isNotOnlyEmptyBlocks {
 						gridStart = i
 						break
 					}
